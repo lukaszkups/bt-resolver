@@ -42,7 +42,16 @@ Shows a tray icon:
 
 The Gtk `appmenu-gtk-module` message is harmless.
 
-Optional autostart: copy [`share/bt-resolver-tray.desktop`](share/bt-resolver-tray.desktop) to `~/.config/autostart/` (adjust `Exec=` to your venv path if needed).
+### Autostart (login)
+
+```bash
+./scripts/install-autostart.sh
+# remove later:
+./scripts/uninstall-autostart.sh
+# or: ./scripts/install-autostart.sh --remove
+```
+
+Writes `~/.config/autostart/bt-resolver-tray.desktop` with an absolute `Exec=` to your `.venv` (or `bt-resolver-tray` on `PATH`). Optional: `--exec /path/to/bt-resolver-tray`.
 
 ## CLI
 
