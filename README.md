@@ -17,7 +17,10 @@ Typical failure it classifies (seen with Xbox Series + some Intel adapters):
 Requires Linux with BlueZ (`bluetoothd`) and system D-Bus access.
 
 ```bash
-# recommended
+# recommended (CLI + tray GUI)
+pipx install '.[tray]'
+
+# CLI only
 pipx install .
 
 # or editable
@@ -25,6 +28,14 @@ python3 -m pip install -e ".[dev]"
 
 # tray GUI (Plasma / StatusNotifier)
 python3 -m pip install -e ".[tray]"
+```
+
+pipx installs every app into its own isolated virtualenv, so `pipx install PySide6`
+does **not** make PySide6 visible to bt-resolver. If you already ran `pipx install .`,
+add PySide6 to bt-resolver's venv instead:
+
+```bash
+pipx inject bt-resolver PySide6
 ```
 
 ## Tray GUI
