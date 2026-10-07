@@ -80,6 +80,7 @@ resolve_tray() {
 
   echo "error: could not find bt-resolver-tray" >&2
   echo "Install the tray extra first, e.g.:" >&2
+  echo "  pipx install '.[tray]'   # or: pipx inject bt-resolver PySide6" >&2
   echo "  python3 -m venv .venv && .venv/bin/pip install -e '.[tray]'" >&2
   echo "Or pass: $0 --exec /path/to/bt-resolver-tray" >&2
   return 1

@@ -19,14 +19,36 @@ from bt_resolver.profiles import detect_profile
 from bt_resolver.resolve import resolve_connection
 
 
+def _in_pipx_venv() -> bool:
+    parts = sys.prefix.replace("\\", "/").split("/")
+    return "pipx" in parts and "venvs" in parts
+
+
+def _qt_install_hint() -> str:
+    if _in_pipx_venv():
+        # pipx gives every app its own venv; PySide6 installed via
+        # `pipx install PySide6` lands in a separate venv we can't see.
+        return (
+            "bt-resolver is installed with pipx, which isolates each app in its own\n"
+            "virtualenv, so PySide6 must be added to bt-resolver's venv:\n"
+            "  pipx inject bt-resolver PySide6\n"
+            "  # or reinstall with the extra: pipx install --force '.[tray]'"
+        )
+    return (
+        "Install with:\n"
+        "  pip install 'bt-resolver[tray]'\n"
+        "  # or: pip install PySide6"
+    )
+
+
 def _require_qt() -> None:
     try:
         import PySide6  # noqa: F401
     except ImportError as exc:  # pragma: no cover
         raise SystemExit(
-            "Tray GUI requires PySide6. Install with:\n"
-            "  pip install 'bt-resolver[tray]'\n"
-            "  # or: pip install PySide6"
+            f"Tray GUI requires PySide6 ({exc}).\n"
+            f"Python: {sys.executable}\n"
+            f"{_qt_install_hint()}"
         ) from exc
 
 
