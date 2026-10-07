@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bt-resolver"
+version = "0.1.0"
+description = "Linux Bluetooth usable-connection verifier and failure diagnostics for BlueZ"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "bt-resolver contributors" }]
+keywords = ["bluetooth", "bluez", "linux", "dbus", "xbox", "gamepad"]
+classifiers = [
+  "Environment :: Console",
+  "Intended Audience :: End Users/Desktop",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+  "Topic :: System :: Hardware",
+]
+dependencies = [
+  "dbus-next>=0.2.3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+tray = ["PySide6>=6.6"]
+
+[project.scripts]
+bt-resolver = "bt_resolver.cli:main"
+bt-resolver-tray = "bt_resolver.tray:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
